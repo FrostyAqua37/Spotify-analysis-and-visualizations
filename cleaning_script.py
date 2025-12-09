@@ -1,7 +1,40 @@
 import pandas as pd
 import matplotlib.pyplot as plt
+#from unidecode import unidecode
 
-top_tracks_2019 = pd.read_csv('Uncleaned data/Top tracks 2019.csv', encoding='ISO-8859-1', index_col=0)
+
+#Cleaning dataset process
+top_tracks_2021 = pd.read_csv('Cleaned data/top_tracks_2021_cleaned.csv')
+top_tracks_2021['track'] = top_tracks_2021['track'].str.replace(r'\s+\([^()]*\)$', '', regex=True)
+top_tracks_2021['track'] = top_tracks_2021['track'].str.split(' - ').str[0]
+top_tracks_2021['track'] = top_tracks_2021['track'].str.capitalize()
+#top_tracks_2021.to_csv('Cleaned data/top_tracks_2020_cleaned.csv', index=False)
+top_tracks_2021['track' == 'Un dia (one day)'] = 'Un dia'
+
+print(top_tracks_2021.to_string())
+#top_tracks_2019 = pd.read_csv('Uncleaned data/Top tracks 2019.csv', encoding='utf-8-sig', index_col=0)
+#top_tracks_2019.drop_duplicates(inplace=True)
+#top_tracks_2019.reset_index(drop=True, inplace=True)
+#top_tracks_2019.drop(columns = ['Beats.Per.Minute', 'Energy', 'Danceability', 'Loudness..dB..', 
+#                                'Liveness', 'Valence.', 'Length.', 'Acousticness..', 'Speechiness.'],
+#                                inplace=True)
+#top_tracks_2019.dropna(inplace=True)
+#
+#top_tracks_2019.rename(columns={'Track.Name':'track', 'Artist.Name':'artists',
+#                                'Genre':'genres', 'Popularity':'popularity'}, inplace=True)
+#top_tracks_2019.to_csv('Cleaned data/top_tracks_2019_cleaned.csv', index=True)
+#
+#pd.set_option('display.max_colwidth', None)
+#
+#top_tracks_2019['track'] = top_tracks_2019['track'].str.split(' - ').str[0]
+#top_tracks_2019['track'] = top_tracks_2019['track'].str.replace(r'\s+\([^()]*\)$', '', regex=True)
+#top_tracks_2019['track'] = top_tracks_2019['track'].str.capitalize()
+#top_tracks_2019['genres'] = top_tracks_2019['genres'].str.capitalize()
+#
+#top_tracks_2019.to_csv('Cleaned data/top_tracks_2019_cleaned.csv', index=True)
+
+
+'''
 top_tracks_2020 = pd.read_csv('Uncleaned data/Top tracks 2020.csv')
 top_tracks_2021 = pd.read_csv('Uncleaned data/Top tracks 2021.csv')
 top_tracks_2022 = pd.read_csv('Uncleaned data/Top tracks 2022.csv')
@@ -14,22 +47,24 @@ top_tracks_2021 = top_tracks_2021.head(100)
 top_tracks_2023 = top_tracks_2023.head(100)
 top_tracks_2024 = top_tracks_2024.head(100)
 
-#top_tracks_2019.drop_duplicates(inplace=True)
+#Removing any duplicate rows.
+top_tracks_2019.drop_duplicates(inplace=True)
 top_tracks_2020.drop_duplicates(subset='Title', inplace=True)
 #top_tracks_2021.drop_duplicates(subset='song_name', inplace=True)
 #top_tracks_2022.drop_duplicates(inplace=True)
 #top_tracks_2023.drop_duplicates(inplace=True)
 top_tracks_2024.drop_duplicates(subset='Track', inplace=True)
 
+#Removing columns
 top_tracks_2019.drop(columns = ['Beats.Per.Minute', 'Energy', 'Danceability', 'Loudness..dB..', 
                                 'Liveness', 'Valence.', 'Length.', 'Acousticness..', 'Speechiness.'],
                                 inplace=True)
 
-top_tracks_2020.drop(columns = 'Country', inplace=True)
+top_tracks_2020.drop(columns = 'Country', inplace=True) 
 
 columns_2021 = ['spotify_id', 'song_name', 'artist_name', 'song_popularity', 
            'album_release_date', 'album_release_year', 'album_release_month']
-top_tracks_2021 = top_tracks_2021[columns_2021]
+top_tracks_2021 = top_tracks_2021[columns_2021] #Selecting which columns to keep.
 
 columns_2022 = ['Spotify ID', 'Artist IDs', 'Track Name', 'Album Name', 'Artist Name(s)', 
                 'Release Date', 'Duration (ms)', 'Popularity', 'Added By', 'Added At',
@@ -76,4 +111,13 @@ top_tracks_2024.rename(columns={'Track':'track', 'Album Name':'album_name', 'Art
                                 'Spotify Popularity':'spotify_popularity', 'YouTube Views':'youtube_views', 'YouTube Likes': 'youtube_likes',
                                 'Apple Music Playlist Count':'apple_music_playlist_count'}, inplace=True)
 
-#top_tracks_2024.to_csv('Cleaned data/top_tracks_2024_cleaned.csv', index=True, encoding='utf-8')
+#top_tracks_2024.to_csv('Cleaned data/top_tracks_2024_cleaned.csv', index=True)
+
+'''
+#top_tracks_2019 = pd.read_csv('Cleaned data/top_tracks_2019_cleaned.csv', encoding='cp1252')
+#pd.set_option('display.max_colwidth', None)
+#
+##top_tracks_2019.to_csv('Cleaned data/top_tracks_2019_cleaned.csv', index=True)
+#print(top_tracks_2019)
+#with open('Cleaned data/top_tracks_2019_cleaned.csv') as f:
+#    print(f)
