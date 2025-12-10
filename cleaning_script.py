@@ -1,17 +1,23 @@
 import pandas as pd
 import matplotlib.pyplot as plt
+import calendar
 #from unidecode import unidecode
 
 
 #Cleaning dataset process
-top_tracks_2021 = pd.read_csv('Cleaned data/top_tracks_2021_cleaned.csv')
-top_tracks_2021['track'] = top_tracks_2021['track'].str.replace(r'\s+\([^()]*\)$', '', regex=True)
-top_tracks_2021['track'] = top_tracks_2021['track'].str.split(' - ').str[0]
-top_tracks_2021['track'] = top_tracks_2021['track'].str.capitalize()
-#top_tracks_2021.to_csv('Cleaned data/top_tracks_2020_cleaned.csv', index=False)
-top_tracks_2021['track' == 'Un dia (one day)'] = 'Un dia'
+top_tracks_2022 = pd.read_csv('Cleaned data/top_tracks_2022_cleaned.csv')
+top_tracks_2022['track'] = top_tracks_2022['track'].str.split(' - ').str[0]
+top_tracks_2022['track'] = top_tracks_2022['track'].str.replace(r'\s+\([^()]*\)$', '', regex=True)
+top_tracks_2022['track'] = top_tracks_2022['track'].apply(lambda x: x.title() \
+                                                          if x[0] == x[0].lower()\
+                                                          else x)
 
-print(top_tracks_2021.to_string())
+top_tracks_2022.drop(columns=['album'], inplace=True)
+top_tracks_2022.loc[7, 'track'] = 'Quevedo'
+
+
+
+
 #top_tracks_2019 = pd.read_csv('Uncleaned data/Top tracks 2019.csv', encoding='utf-8-sig', index_col=0)
 #top_tracks_2019.drop_duplicates(inplace=True)
 #top_tracks_2019.reset_index(drop=True, inplace=True)
