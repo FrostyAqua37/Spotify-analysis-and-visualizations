@@ -5,15 +5,36 @@ import calendar
 
 
 #Cleaning dataset process
-top_tracks_2022 = pd.read_csv('Cleaned data/top_tracks_2022_cleaned.csv')
-top_tracks_2022['track'] = top_tracks_2022['track'].str.split(' - ').str[0]
-top_tracks_2022['track'] = top_tracks_2022['track'].str.replace(r'\s+\([^()]*\)$', '', regex=True)
-top_tracks_2022['track'] = top_tracks_2022['track'].apply(lambda x: x.title() \
-                                                          if x[0] == x[0].lower()\
-                                                          else x)
+top_tracks_2023 = pd.read_csv('Cleaned data/top_tracks_2023_cleaned.csv')
+top_tracks_2023['track'] = top_tracks_2023['track'].str.split(' - ').str[0]
+top_tracks_2023['track'] = top_tracks_2023['track'].str.split(':').str[0]
 
-top_tracks_2022.drop(columns=['album'], inplace=True)
-top_tracks_2022.loc[7, 'track'] = 'Quevedo'
+top_tracks_2023['track'] = top_tracks_2023['track'].str.replace(r'\s+\([^()]*\)$', '', regex=True)
+top_tracks_2023['track'] = top_tracks_2023['track'].str.replace(r'\s+\([^()]*\)$', '', regex=True)
+top_tracks_2023.loc[17, 'track'] = 'What Was I Made For?'
+top_tracks_2023.loc[21, 'track'] = 'I Can See You'
+top_tracks_2023.loc[36, 'track'] = 'Frágil'
+top_tracks_2023.loc[44, 'track'] = 'Barbie World'
+top_tracks_2023.loc[60, 'track'] = 'Tá OK'
+top_tracks_2023.loc[79, 'track'] = 'CORAZÓN VACÍO'
+top_tracks_2023.loc[82, 'track'] = 'Novidade na Área'
+top_tracks_2023.loc[93, 'track'] = "Don't Blame Me"
+top_tracks_2023.loc[26, 'artists'] = 'Rema, Selena G'
+
+top_tracks_2023['track'] = top_tracks_2023['track'].apply(lambda x: x.title() \
+                                                         if x[0] == x[0].lower()\
+                                                         else x)
+
+top_tracks_2023.to_csv('Cleaned data/top_tracks_2023_cleaned.csv', index=False)
+
+#top_tracks_2022['track'] = top_tracks_2022['track'].str.split(' - ').str[0]
+#top_tracks_2022['track'] = top_tracks_2022['track'].str.replace(r'\s+\([^()]*\)$', '', regex=True)
+#top_tracks_2022['track'] = top_tracks_2022['track'].apply(lambda x: x.title() \
+#                                                          if x[0] == x[0].lower()\
+#                                                          else x)
+#
+#top_tracks_2022.drop(columns=['album'], inplace=True)
+#top_tracks_2022.loc[7, 'track'] = 'Quevedo'
 
 
 
