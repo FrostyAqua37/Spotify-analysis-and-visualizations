@@ -1,32 +1,31 @@
 import pandas as pd
-import matplotlib.pyplot as plt
-import calendar
 #from unidecode import unidecode
 
 
 #Cleaning dataset process
-top_tracks_2023 = pd.read_csv('Cleaned data/top_tracks_2023_cleaned.csv')
-top_tracks_2023['track'] = top_tracks_2023['track'].str.split(' - ').str[0]
-top_tracks_2023['track'] = top_tracks_2023['track'].str.split(':').str[0]
+top_tracks_2024 = pd.read_csv('Cleaned data/top_tracks_2024_cleaned.csv')
 
-top_tracks_2023['track'] = top_tracks_2023['track'].str.replace(r'\s+\([^()]*\)$', '', regex=True)
-top_tracks_2023['track'] = top_tracks_2023['track'].str.replace(r'\s+\([^()]*\)$', '', regex=True)
-top_tracks_2023.loc[17, 'track'] = 'What Was I Made For?'
-top_tracks_2023.loc[21, 'track'] = 'I Can See You'
-top_tracks_2023.loc[36, 'track'] = 'Frágil'
-top_tracks_2023.loc[44, 'track'] = 'Barbie World'
-top_tracks_2023.loc[60, 'track'] = 'Tá OK'
-top_tracks_2023.loc[79, 'track'] = 'CORAZÓN VACÍO'
-top_tracks_2023.loc[82, 'track'] = 'Novidade na Área'
-top_tracks_2023.loc[93, 'track'] = "Don't Blame Me"
-top_tracks_2023.loc[26, 'artists'] = 'Rema, Selena G'
+top_tracks_2024['track'] = top_tracks_2024['track'].str.replace(r'\s+\([^()]*\)$', '', regex=True)
+top_tracks_2024['track'] = top_tracks_2024['track'].str.split(' - ').str[0]
+top_tracks_2024['track'] = top_tracks_2024['track'].str.split(':').str[0]
+#top_tracks_2024['spotify_streams'] = top_tracks_2024['spotify_streams'].int.replace(',', '')
 
-top_tracks_2023['track'] = top_tracks_2023['track'].apply(lambda x: x.title() \
-                                                         if x[0] == x[0].lower()\
-                                                         else x)
+top_tracks_2024.loc[51, 'track'] = 'What Was I Made For?'
+top_tracks_2024.loc[33, 'track'] = 'Cupid'
+top_tracks_2024.loc[66, 'track'] = 'Tití Me Preguntó'
+top_tracks_2024.loc[34, 'track'] = "I'm Good (Blue)"
+top_tracks_2024.loc[49, 'artists'] = 'Kanye West'
+top_tracks_2024.loc[20, 'artists'] = 'Beyoncé'
+top_tracks_2024.loc[76, 'artists'] = 'Cassö'
 
-top_tracks_2023.to_csv('Cleaned data/top_tracks_2023_cleaned.csv', index=False)
+top_tracks_2024['spotify_streams'] = top_tracks_2024['spotify_streams'].astype('int')
 
+top_tracks_2024['track'] = top_tracks_2024['track'].apply(lambda x: x.title() \
+                                                          if x[0] == x[0].lower()\
+                                                          else x)
+
+top_tracks_2024 = top_tracks_2024.sort_values(['spotify_streams'], ascending=False).reset_index()
+print(top_tracks_2024[['artists', 'track', 'spotify_streams']].to_string())
 #top_tracks_2022['track'] = top_tracks_2022['track'].str.split(' - ').str[0]
 #top_tracks_2022['track'] = top_tracks_2022['track'].str.replace(r'\s+\([^()]*\)$', '', regex=True)
 #top_tracks_2022['track'] = top_tracks_2022['track'].apply(lambda x: x.title() \
